@@ -25,6 +25,25 @@ jobs:
           flutter-version: '3.24.x'
           channel: 'stable'
 
+      - name: Recreate Android Project
+        run: |
+          flutter create . --platforms=android --org=com.auramusic
+
+      - name: Restore Google Services
+        run: |
+          if [ -f "android/app/google-services.json" ]; then
+            echo "google-services.json exists"
+          fi
+
+      - name: Add Google Services Plugin to Build Gradle
+        run: |
+          sed -i '/id "dev.flutter.flutter-gradle-plugin"/a \    id "com.google.gms.google-services"' android/app/build.gradle
+          sed -i '/dependencies {/a \        classpath "com.google.gms:google-services:4.4.2"' android/build.gradle
+
+      - name: Add AdMob ID to AndroidManifest
+        run: |
+          sed -i '/<application/a \        <meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="ca-app-pub-3940256099942544~3347511713"/>' android/app/src/main/AndroidManifest.xml
+
       - name: Get Dependencies
         run: flutter pub get
 
