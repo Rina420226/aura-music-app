@@ -25,20 +25,12 @@ jobs:
           flutter-version: '3.24.x'
           channel: 'stable'
 
-      - name: Generate Standard PNG Launcher Icons
+      - name: Populate Default Flutter Android Assets
         run: |
-          mkdir -p android/app/src/main/res/mipmap-hdpi
-          mkdir -p android/app/src/main/res/mipmap-mdpi
-          mkdir -p android/app/src/main/res/mipmap-xhdpi
-          mkdir -p android/app/src/main/res/mipmap-xxhdpi
-          mkdir -p android/app/src/main/res/mipmap-xxxhdpi
-
-          # 1x1 Cyan Base64 PNG Icon
-          echo "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==" | base64 -d > android/app/src/main/res/mipmap-hdpi/ic_launcher.png
-          cp android/app/src/main/res/mipmap-hdpi/ic_launcher.png android/app/src/main/res/mipmap-mdpi/ic_launcher.png
-          cp android/app/src/main/res/mipmap-hdpi/ic_launcher.png android/app/src/main/res/mipmap-xhdpi/ic_launcher.png
-          cp android/app/src/main/res/mipmap-hdpi/ic_launcher.png android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png
-          cp android/app/src/main/res/mipmap-hdpi/ic_launcher.png android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
+          mkdir -p /tmp/dummy_flutter
+          flutter create --platforms=android --org=com.auramusic /tmp/dummy_flutter
+          cp -rn /tmp/dummy_flutter/android/app/src/main/res/* android/app/src/main/res/ || true
+          rm -rf /tmp/dummy_flutter
 
       - name: Get Dependencies
         run: flutter pub get
