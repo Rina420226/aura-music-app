@@ -27,7 +27,7 @@ jobs:
 
       - name: Recreate Android Project
         run: |
-          flutter create . --platforms=android --org=com.auramusic
+          flutter create . --project-name aura_music_app --platforms=android --org=com.auramusic
 
       - name: Restore Google Services
         run: |
