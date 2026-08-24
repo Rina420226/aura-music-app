@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "428741833199",
+    "project_id": "auramusicapp-6c90f",
+    "storage_bucket": "auramusicapp-6c90f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:428741833199:android:576d7b4617d25c683a861a",
+        "android_client_info": {
+          "package_name": "com.auramusic.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3EeH1-ims4fn2L7fy1TF-Lsewh-1SyhQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
