@@ -25,12 +25,27 @@ jobs:
           flutter-version: '3.24.x'
           channel: 'stable'
 
-      - name: Populate Default Flutter Android Assets
+      - name: Rebuild Clean Android Environment
         run: |
-          mkdir -p /tmp/dummy_flutter
-          flutter create --platforms=android --org=com.auramusic /tmp/dummy_flutter
-          cp -rn /tmp/dummy_flutter/android/app/src/main/res/* android/app/src/main/res/ || true
-          rm -rf /tmp/dummy_flutter
+          # 1. Backup google-services.json
+          mkdir -p /tmp/backup
+          find . -name "google-services.json" -exec cp {} /tmp/backup/ \;
+
+          # 2. Fresh Android Setup
+          rm -rf android
+          flutter create --org com.auramusic --project-name aura_music /tmp/fresh_app
+          mv /tmp/fresh_app/android ./android
+          rm -rf /tmp/fresh_app
+
+          # 3. Restore google-services.json
+          if [ -f "/tmp/backup/google-services.json" ]; then
+            cp /tmp/backup/google-services.json android/app/
+          fi
+
+          # 4. Inject Google Services & AdMob into fresh files
+          sed -i '/id "org.jetbrains.kotlin.android"/a \    id "com.google.gms.google-services" version "4.4.2" apply false' android/settings.gradle
+          sed -i '/id "dev.flutter.flutter-gradle-plugin"/a \    id "com.google.gms.google-services"' android/app/build.gradle
+          sed -i '/<application/a \        <meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="ca-app-pub-3940256099942544~3347511713"/>' android/app/src/main/AndroidManifest.xml
 
       - name: Get Dependencies
         run: flutter pub get
