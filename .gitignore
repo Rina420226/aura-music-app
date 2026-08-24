@@ -1,0 +1,13 @@
+.dart_tool/
+.idea/
+.vscode/
+.packages
+.pub/
+build/
+android/.gradle
+android/captures/
+android/gradlew
+android/gradlew.bat
+android/local.properties
+android/GeneratedPluginRegistrant.java
+ios/
