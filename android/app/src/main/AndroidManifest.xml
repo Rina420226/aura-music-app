@@ -9,7 +9,8 @@
     <application
         android:label="Aura Beats"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true">
         
         <!-- Google AdMob Sample App ID (Build fail hone se bachane ke liye) -->
         <meta-data
@@ -54,4 +55,3 @@
             android:value="2" />
     </application>
 </manifest>
-            
